@@ -1,7 +1,7 @@
 'use strict';
 
 function gettingNumber(target) {
-    if (Number.isNaN(target) || !Number.isFinite(target)) return null;
+    if (!Number.isFinite(target)) return null;
 
     const roundedTarget = Math.round(target);
 
