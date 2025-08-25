@@ -5,19 +5,25 @@ function gettingNumber(target, current = 1, path = '1') {
 
     if (current > target) return null;
 
-    const multiply = gettingNumber(target, current * 3, `(${path} * 3)`);
-    if (multiply !== null) return multiply;
+    const addResult = gettingNumber(target, current + 5, `(${path} + 5)`);
+    if (addResult !== null) return addResult;
 
-    const add = gettingNumber(target, current + 5, `(${path} + 5)`);
-    if (add !== null) return add;
+    const multiplyResult = gettingNumber(target, current * 3, `(${path} * 3)`);
+    if (multiplyResult !== null) return multiplyResult;
 
     return null;
 }
 
-const targetNumber = 54;
+const targetNumber = 64;
 
-!Number.isInteger(targetNumber) || targetNumber % 5 === 0
-    ? console.log(`Cannot obtain number ${targetNumber} with *3 and +5`)
-    : console.log(
-          `Expression for ${targetNumber}: ${gettingNumber(targetNumber)}`
-      );
+if (
+    !Number.isInteger(targetNumber) ||
+    targetNumber <= 0 ||
+    targetNumber % 5 === 0
+) {
+    console.log(`Cannot obtain number ${targetNumber} with *3 and +5`);
+} else {
+    console.log(
+        `Expression for ${targetNumber}: ${gettingNumber(targetNumber)}`
+    );
+}
