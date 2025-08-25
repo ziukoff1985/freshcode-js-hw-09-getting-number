@@ -1,29 +1,26 @@
 'use strict';
 
-function gettingNumber(target, current = 1, path = '1') {
-    if (current === target) return path;
-
-    if (current > target) return null;
-
-    const addResult = gettingNumber(target, current + 5, `(${path} + 5)`);
-    if (addResult !== null) return addResult;
-
-    const multiplyResult = gettingNumber(target, current * 3, `(${path} * 3)`);
-    if (multiplyResult !== null) return multiplyResult;
-
-    return null;
+function gettingNumber(target) {
+    if (!Number.isInteger(target) || target <= 0 || target % 5 === 0) {
+        return null;
+    }
+    function findExpression(current, path) {
+        if (current === target) return path;
+        if (current > target) return null;
+        return (
+            findExpression(current + 5, `(${path} + 5)`) ||
+            findExpression(current * 3, `(${path} * 3)`)
+        );
+    }
+    return findExpression(1, '1');
 }
 
-const targetNumber = 64;
+const targetNumber = 62;
 
-if (
-    !Number.isInteger(targetNumber) ||
-    targetNumber <= 0 ||
-    targetNumber % 5 === 0
-) {
+const result = gettingNumber(targetNumber);
+
+if (result === null) {
     console.log(`Cannot obtain number ${targetNumber} with *3 and +5`);
 } else {
-    console.log(
-        `Expression for ${targetNumber}: ${gettingNumber(targetNumber)}`
-    );
+    console.log(`Expression for ${targetNumber}: ${result}`);
 }
