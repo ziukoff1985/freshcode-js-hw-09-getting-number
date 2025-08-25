@@ -1,8 +1,6 @@
 'use strict';
 
 function gettingNumber(target) {
-    if (!Number.isFinite(target)) return null;
-
     const roundedTarget = Math.round(target);
 
     if (roundedTarget <= 0 || roundedTarget % 5 === 0) {
