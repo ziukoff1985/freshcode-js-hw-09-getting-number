@@ -1,12 +1,16 @@
 'use strict';
 
 function gettingNumber(target) {
-    if (!Number.isInteger(target) || target <= 0 || target % 5 === 0) {
+    if (Number.isNaN(target) || !Number.isFinite(target)) return null;
+
+    const roundedTarget = Math.round(target);
+
+    if (roundedTarget <= 0 || roundedTarget % 5 === 0) {
         return null;
     }
     function findExpression(current, path) {
-        if (current === target) return path;
-        if (current > target) return null;
+        if (current === roundedTarget) return path;
+        if (current > roundedTarget) return null;
         return (
             findExpression(current + 5, `(${path} + 5)`) ||
             findExpression(current * 3, `(${path} * 3)`)
@@ -15,12 +19,14 @@ function gettingNumber(target) {
     return findExpression(1, '1');
 }
 
-const targetNumber = 62;
+const targetNumber = 62.7;
 
 const result = gettingNumber(targetNumber);
 
 if (result === null) {
-    console.log(`Cannot obtain number ${targetNumber} with *3 and +5`);
+    console.log(
+        `Cannot obtain number ${Math.round(targetNumber)} with *3 and +5`
+    );
 } else {
-    console.log(`Expression for ${targetNumber}: ${result}`);
+    console.log(`Expression for ${Math.round(targetNumber)}: ${result}`);
 }
